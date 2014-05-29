@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<display-name>Example Spring Webservice - Probably Should Have Done Java Config</display-name>
+
+	<servlet>
+		<description>
+		The spring dispatcher intercepts all requests for a certain predefined url pattern and redirects the requests to a dispatcher.
+		</description>
+		<servlet-name>spring-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>
+			Tell spring where to find the spring configuration for the dispatcher servlet.
+			</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>WEB-INF/spring/web.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+	    <servlet-name>example-ws</servlet-name>
+	    <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+	    <init-param>
+			<description>
+			Tell spring where to find the spring configuration for the web service servlet.
+			</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>WEB-INF/spring/webservice.xml</param-value>
+		</init-param>
+	    <init-param>
+	      <param-name>transformWsdlLocations</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	  </servlet>
+	
+	<servlet-mapping>
+		<servlet-name>spring-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	  <servlet-mapping>
+	    <servlet-name>example-ws</servlet-name>
+	    <url-pattern>/ws/*</url-pattern>
+	  </servlet-mapping>
+	
+</web-app>
